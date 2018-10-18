@@ -2,7 +2,7 @@
   div
     button(@click="index++") ボタン
     ul.imageList
-      li.images(v-for="(item,index) in lists" v-bind:key="item.id" v-on:click="openModal")
+      li.images(v-for="(item,index) in lists" v-bind:key="item.id" v-on:click="openModal(index)")
         img.modal__image(v-bind:src="require(`../assets/modal_thumb${item.img}.jpg`)")
     Modal(@close="closeModal" v-if="modal")
       img.modal__image(v-bind:src="require(`../assets/modal_img${index}.jpg`)")
@@ -73,8 +73,8 @@
     },
     methods: {
       openModal(index) {
-        this.modal = true
-        console.log(index)
+        this.index = index +1;
+        this.modal = true;
       },
       closeModal() {
         this.modal = false
