@@ -5,6 +5,8 @@
         .modal__content
           slot
         .modal__footer
+          button(@click="$emit('prev')") 前
+          button(@click="$emit('next')") 次
           button(@click="$emit('close')") Close
 </template>
 
@@ -53,7 +55,7 @@
   }
 
   .modal-leave-active {
-    transition: opacity 0.6s ease 0.4s;
+    transition: opacity 0.6s ease 0.1s;
   }
 
   .modal-enter, .modal-leave-to {

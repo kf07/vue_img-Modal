@@ -1,11 +1,10 @@
 <template lang="pug">
   div
-    button(@click="index++") ボタン
     ul.imageList
       li.images(v-for="(item,index) in lists" v-bind:key="item.id" v-on:click="openModal(index)")
         img.modal__image(v-bind:src="require(`../assets/modal_thumb${item.img}.jpg`)")
-    Modal(@close="closeModal" v-if="modal")
-      img.modal__image(v-bind:src="require(`../assets/modal_img${index}.jpg`)")
+    Modal(@close="closeModal" v-if="modal" @next="nextModal" @prev="prevModal")
+      img.modal__image(v-bind:src="require(`../assets/modal_img${index2}.jpg`)")
 </template>
 
 <script>
@@ -17,8 +16,8 @@
     data() {
       return {
         modal: false,
-        index: 1,
-        imgPath: '',
+        index: 1,　//表示する画像のindex
+        imgPath: '',　
         lists: [
           {
             id:1,
@@ -59,14 +58,15 @@
             id:10,
             img: '10',
           }
-        ]
+        ],
+        index2 :0　//表示する画像のindexの0埋め
       }
     },
     watch: {
       index: {
         handler: function(){
           const index = ('00' + this.index).slice(-2);
-          this.index = index;
+          this.index2 = index;
         },
         immediate: true
       }
@@ -78,6 +78,20 @@
       },
       closeModal() {
         this.modal = false
+      },
+      nextModal() {
+        if (this.index < 10 ) {
+          this.index += 1;
+        } else {
+          this.index = 1;
+        }
+      },
+      prevModal() {
+        if (this.index > 1 ) {
+          this.index -= 1;
+        }else {
+          this.index = 10;
+        }
       }
     }
   }
@@ -104,5 +118,6 @@
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+    padding: 0;
   }
 </style>
