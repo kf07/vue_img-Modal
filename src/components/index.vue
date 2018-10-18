@@ -2,26 +2,8 @@
   div
     button(@click="index++") ボタン
     ul.imageList
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb01.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb02.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb03.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb04.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb05.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb06.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb07.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb08.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb09.jpg")
-      li.images(@click="openModal")
-        img(src="../assets/modal_thumb10.jpg")
+      li.images(v-for="(item,index) in lists" v-bind:key="item.id" v-on:click="openModal")
+        img.modal__image(v-bind:src="require(`../assets/modal_thumb${item.img}.jpg`)")
     Modal(@close="closeModal" v-if="modal")
       img.modal__image(v-bind:src="require(`../assets/modal_img${index}.jpg`)")
 </template>
@@ -37,6 +19,47 @@
         modal: false,
         index: 1,
         imgPath: '',
+        lists: [
+          {
+            id:1,
+            img: '01',
+          },
+          {
+            id:2,
+            img: '02',
+          },
+          {
+            id:3,
+            img: '03',
+          },
+          {
+            id:4,
+            img: '04',
+          },
+          {
+            id:5,
+            img: '05',
+          },
+          {
+            id:6,
+            img: '06',
+          },{
+            id:7,
+            img: '07',
+          },
+          {
+            id:8,
+            img: '08',
+          },
+          {
+            id:9,
+            img: '09',
+          },
+          {
+            id:10,
+            img: '10',
+          }
+        ]
       }
     },
     watch: {
@@ -49,8 +72,9 @@
       }
     },
     methods: {
-      openModal() {
+      openModal(index) {
         this.modal = true
+        console.log(index)
       },
       closeModal() {
         this.modal = false
